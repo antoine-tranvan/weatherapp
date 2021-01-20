@@ -10,42 +10,38 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/weather', async function(req, res, next){
-
   var cityList = await cityModel.find();
 
   res.render('weather', {cityList})
-})
+});
 
 router.post('/add-city', async function(req, res, next){
-  
   var data = request("GET", `https://api.openweathermap.org/data/2.5/weather?q=${req.body.newcity}&units=metric&lang=fr&appid=0c815b9455235455a301668a56c67b18`) 
   var dataAPI = JSON.parse(data.body)
 
-  var alreadyExist = await cityModel.findOne({
-    name: req.body.newcity.toLowerCase()
-  });
+  if(dataAPI.name) {
+  var alreadyExist = await cityModel.findOne({ name: dataAPI.name });
 
-  if(alreadyExist == null && dataAPI.name){
+    if(alreadyExist == null){
 
-    var newCity = new cityModel({
-      name: req.body.newcity,
-      desc:  dataAPI.weather[0].description,
-      img: "http://openweathermap.org/img/wn/"+dataAPI.weather[0].icon+".png",
-      temp_min: dataAPI.main.temp_min,
-      temp_max: dataAPI.main.temp_max,
-    })
+      var newCity = new cityModel({
+        name: dataAPI.name,
+        desc:  dataAPI.weather[0].description,
+        img: "http://openweathermap.org/img/wn/"+dataAPI.weather[0].icon+".png",
+        temp_min: dataAPI.main.temp_min,
+        temp_max: dataAPI.main.temp_max,
+      })
 
-    await newCity.save();
+      await newCity.save();
+    }
   }
 
   cityList = await cityModel.find();
-  
 
   res.render('weather', {cityList})
-})
+});
 
 router.get('/delete-city', async function(req, res, next){
-
   await cityModel.deleteOne({
     _id: req.query.id
   })
@@ -53,7 +49,7 @@ router.get('/delete-city', async function(req, res, next){
   var cityList = await cityModel.find();
 
   res.render('weather', {cityList})
-})
+});
 
 router.get('/update-cities', async function(req, res, next){
   var cityList = await cityModel.find();
@@ -76,6 +72,6 @@ router.get('/update-cities', async function(req, res, next){
   var cityList = await cityModel.find();
 
   res.render('weather', {cityList})
-})
+});
 
 module.exports = router;
