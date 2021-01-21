@@ -19,21 +19,18 @@ router.post('/add-city', async function(req, res, next){
   var data = request("GET", `https://api.openweathermap.org/data/2.5/weather?q=${req.body.newcity}&units=metric&lang=fr&appid=0c815b9455235455a301668a56c67b18`) 
   var dataAPI = JSON.parse(data.body)
 
-  if(dataAPI.name) {
-  var alreadyExist = await cityModel.findOne({ name: dataAPI.name });
+  var alreadyExist = await cityModel.findOne({ name: req.body.newcity.toLowerCase() });
 
-    if(alreadyExist == null){
+  if(alreadyExist == null && dataAPI.name){
+    var newCity = new cityModel({
+      name: req.body.newcity.toLowerCase(),
+      desc:  dataAPI.weather[0].description,
+      img: "http://openweathermap.org/img/wn/"+dataAPI.weather[0].icon+".png",
+      temp_min: dataAPI.main.temp_min,
+      temp_max: dataAPI.main.temp_max,
+    });
 
-      var newCity = new cityModel({
-        name: dataAPI.name,
-        desc:  dataAPI.weather[0].description,
-        img: "http://openweathermap.org/img/wn/"+dataAPI.weather[0].icon+".png",
-        temp_min: dataAPI.main.temp_min,
-        temp_max: dataAPI.main.temp_max,
-      });
-
-      await newCity.save();
-    }
+    await newCity.save();
   }
 
   cityList = await cityModel.find();
