@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <title>WeatherApp</title>
+    <script src="https://kit.fontawesome.com/59e5b2a971.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -15,7 +16,10 @@
     <!-- HEADER -->
     <nav class=" header navbar navbar-light bg-dark">
         Weather App
-       <a class="logout" href="./login.html">Deconnexion</a>
+        <div  class="logout">
+        <div><i class="fa-solid fa-user-ninja"></i> <%=username%></div>
+        <a href="/logout" >Deconnexion</a>
+        </div>
    </nav> 
 
 

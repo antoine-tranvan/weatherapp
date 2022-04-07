@@ -1,15 +1,14 @@
 body {
-
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
 .empty {
   font-size: 16px;
-  color:#ffc107;
+  color: #ffc107;
 }
 
 .logout {
@@ -17,15 +16,13 @@ a {
   margin-right: 15px;
 }
 
-
-
 .home {
-  background-image: url('../images/weather.jpg');
+  background-image: url("../images/weather.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  
-  color: #FFFFFF;
+
+  color: #ffffff;
   text-shadow: 1px 1px 1px black;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -35,22 +32,21 @@ a {
   justify-content: center;
 }
 
-
-.navItem{
+.navItem {
   margin-bottom: 10px;
 }
 
-.get_started{
+.get_started {
   margin-bottom: 70px;
 }
 
 .header {
   margin-bottom: 50px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
-.deletepicto{
-  color: #FFBF43
+.deletepicto {
+  color: #ffbf43;
 }
 
 .update-cities {
@@ -58,3 +54,8 @@ a {
   margin: 15px;
 }
 
+.errorMessage {
+  width: 100%;
+  background-color: white;
+  color: red;
+}
